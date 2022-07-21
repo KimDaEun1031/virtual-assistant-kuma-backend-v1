@@ -1,6 +1,8 @@
 require("dotenv").config();
 require("./config/mongo.connection");
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED="0";
+
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
