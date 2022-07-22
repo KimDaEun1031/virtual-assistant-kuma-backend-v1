@@ -4,22 +4,11 @@ const User = require("../models/User");
 const catchAsync = require("../utils/catchAsync");
 
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
+  const { email } = req.body;
 
-  if (token) {
-    const { id } = jwt.verify(token, process.env.SECRET_KEY);
-    const user = await User.findById(id).lean();
+  const user = await User.findOne({ email }).lean();
 
-    req.body.user = user;
+  req.body.user = user;
 
-    return next();
-  }
-
-  res.json({
-    result: "error",
-    error: {
-      message: "Unauthorized",
-      status: 401,
-    },
-  });
+  return next();
 });

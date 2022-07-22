@@ -5,10 +5,12 @@ const {
   getTodayEvent,
   createEvent,
   googleCalendarAuth,
+  getToken,
 } = require("../controllers/calendarController");
 
 router.get("/auth", googleCalendarAuth);
+router.get("/token", getToken);
 router.get("/event", getTodayEvent);
-router.get("/insert/event", createEvent);
+router.post("/event", createEvent);
 
 module.exports = router;

@@ -1,6 +1,8 @@
 require("dotenv").config();
 require("./config/mongo.connection");
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED="0";
+
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
@@ -11,6 +13,7 @@ const app = express();
 const indexRouter = require("./routes/index");
 const calendarRouter = require("./routes/calendar");
 const chatRouter = require("./routes/chat");
+const weatherRouter = require("./routes/weather");
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -25,6 +28,7 @@ app.use(
 app.use("/", indexRouter);
 app.use("/calendar", calendarRouter);
 app.use("/chat", chatRouter);
+app.use("/weather", weatherRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
